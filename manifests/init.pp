@@ -16,40 +16,40 @@ class hpsim {
 
     /^5./: {
       package { 'hp-health':
-        ensure => '8.5.0.23-23',
+        ensure => installed,
       }
       package { 'hp-OpenIPMI':
-        ensure => '8.5.0-1',
+        ensure => installed,
       }
       package { 'hpsmh':
-        ensure => '6.1.0-103',
+        ensure => installed,
       }
       package { 'hp-smh-templates':
-        ensure => '8.5.0.13-15',
+        ensure => installed,
       }
       package { 'hp-snmp-agents':
-        ensure => '8.5.0.17-19',
+        ensure => installed,
       }
       package { 'hpvca':
-        ensure => '6.1.0-7',
+        ensure => installed,
       }
     }
 
     /^6./: {
       package { 'hp-health':
-        ensure => '8.6.2.2-14',
+        ensure => installed,
       }
       package { 'hpsmh':
-        ensure => '6.2.1-14',
+        ensure => installed,
       }
       package { 'hp-smh-templates':
-        ensure => '8.6.0.14',
+        ensure => installed,
       }
       package { 'hp-snmp-agents':
-        ensure => '8.6.2.3-9',
+        ensure => installed,
       }
       package { 'hpvca':
-        ensure => '6.2.1-1',
+        ensure => installed,
       }
     }
 
