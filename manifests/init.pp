@@ -12,15 +12,20 @@
 #
 class hpsim {
 
-  case $::operatingsystemrelease {
-
-    /^5./: {
+  case $::operatingsystemmajrelease {
+    /5/: {
       package { [ 'hp-health', 'hp-OpenIPMI', 'hpsmh', 'hp-smh-templates', 'hp-snmp-agents', 'hpvca' ]:
         ensure => installed,
       }
     }
 
-    /^6./: {
+    /6/: {
+      package { [ 'hp-health' , 'hpsmh', 'hp-smh-templates', 'hp-snmp-agents', 'hpvca' ]:
+        ensure => installed,
+      }
+    }
+
+    /7/: {
       package { [ 'hp-health' , 'hpsmh', 'hp-smh-templates', 'hp-snmp-agents', 'hpvca' ]:
         ensure => installed,
       }
