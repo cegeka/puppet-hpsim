@@ -26,7 +26,7 @@ class hpsim {
     }
 
     /7/: {
-      package { [ 'hp-health' , 'hpsmh', 'hp-smh-templates', 'hp-snmp-agents', 'hpvca' ]:
+      package { [ 'hp-health' , 'hpsmh', 'hp-smh-templates', 'hp-snmp-agents', 'kmod-hpvsa' ]:
         ensure => installed,
       }
     }
