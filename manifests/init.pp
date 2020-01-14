@@ -20,13 +20,13 @@ class hpsim {
     }
 
     /6/: {
-      package { [ 'hp-health', 'hp-snmp-agents', 'hpvca' ]:
+      package { [ 'hp-health', 'hp-snmp-agents', 'hpvca', 'hp-ams', 'hponcfg' ]:
         ensure => installed,
       }
     }
 
     /7/: {
-      package { [ 'hp-health', 'hp-snmp-agents', 'kmod-hpvsa' ]:
+      package { [ 'hp-health', 'hp-snmp-agents', 'kmod-hpvsa', 'hp-ams', 'hponcfg' ]:
         ensure => installed,
       }
     }
