@@ -26,7 +26,12 @@ class hpsim {
     }
 
     /7/: {
-      package { [ 'hp-health', 'hp-snmp-agents', 'kmod-hpvsa', 'hp-ams', 'hponcfg' ]:
+      if $::is_hp_gen10 {
+        $ams_package_name = 'amsd'  # hp_gen10 uses iLO5 which requires package amsd instead of hp-ams
+      } else {
+        $ams_package_name = 'hp-ams'
+      }
+      package { [ 'hp-health', 'hp-snmp-agents', 'kmod-hpvsa', "$ams_package_name", 'hponcfg' ]:
         ensure => installed,
       }
     }
