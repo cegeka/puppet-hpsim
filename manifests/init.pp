@@ -10,8 +10,9 @@
 #
 # Sample Usage:
 #
-class hpsim {
-
+class hpsim (
+  $sut_mode
+) {
   case $::operatingsystemmajrelease {
     /5/: {
       package { [ 'hp-health', 'hp-OpenIPMI', 'hp-snmp-agents', 'hpvca' ]:
@@ -25,7 +26,7 @@ class hpsim {
       }
     }
 
-    /7/: {
+    /7|8/: {
       if $::is_hp_gen10 {
         $ams_package_name = 'amsd'  # hp_gen10 uses iLO5 which requires package amsd instead of hp-ams
       } else {
@@ -33,6 +34,11 @@ class hpsim {
       }
       package { [ 'hp-health', 'hp-snmp-agents', 'kmod-hpvsa', "$ams_package_name", 'hponcfg' ]:
         ensure => installed,
+      }
+      package { 'sut':
+        ensure => installed,
+      } ~> exec {"/sbin/sut -set mode=${sut_mode}":
+        refreshonly => true,
       }
     }
     default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
