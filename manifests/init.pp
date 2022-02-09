@@ -32,12 +32,15 @@ class hpsim (
       } else {
         $ams_package_name = 'hp-ams'
       }
-      package { [ 'hp-health', 'hp-snmp-agents', 'kmod-hpvsa', "$ams_package_name", 'hponcfg' ]:
+      package { [ 'hp-health', 'hp-snmp-agents', 'kmod-hpvsa', $ams_package_name, 'hponcfg' ]:
         ensure => installed,
       }
       package { 'sut':
         ensure => installed,
+      } ~> exec {'/usr/bin/sleep 10':
+        refreshonly => true,
       } ~> exec {"/sbin/sut -set mode=${sut_mode}":
+        path        => '/usr/local/bin:/bin:/sbin:/usr/local/sbin',
         refreshonly => true,
       }
     }
