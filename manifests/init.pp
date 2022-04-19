@@ -13,7 +13,7 @@
 class hpsim (
   $sut_mode
 ) {
-  case $::operatingsystemmajrelease {
+  case $facts['os']['release']['major'] {
     /5/: {
       package { [ 'hp-health', 'hp-OpenIPMI', 'hp-snmp-agents', 'hpvca' ]:
         ensure => installed,
@@ -26,16 +26,19 @@ class hpsim (
       }
     }
 
+    '7': {
+      package { ['kmod-hpvsa']:
+        ensure => installed
+      }
+    }
+
     /7|8/: {
       if $::is_hp_gen10 {
         $ams_package_name = 'amsd'  # hp_gen10 uses iLO5 which requires package amsd instead of hp-ams
       } else {
         $ams_package_name = 'hp-ams'
       }
-      package { [ 'hp-health', 'hp-snmp-agents', 'kmod-hpvsa', $ams_package_name, 'hponcfg' ]:
-        ensure => installed,
-      }
-      package { 'sut':
+      package { [ 'hp-health', 'hp-snmp-agents', $ams_package_name, 'hponcfg', 'sut' ]:
         ensure => installed,
       } ~> exec {'/usr/bin/sleep 10':
         refreshonly => true,
@@ -44,7 +47,7 @@ class hpsim (
         refreshonly => true,
       }
     }
-    default: { notice("operatingsystemrelease ${::operatingsystemrelease} is not supported") }
+    default: { notice("operatingsystemrelease ${facts['os']['release']['full']} is not supported") }
   }
 
   if !$::is_hp_gen10 {
