@@ -26,12 +26,6 @@ class hpsim (
       }
     }
 
-    '7': {
-      package { ['kmod-hpvsa']:
-        ensure => installed
-      }
-    }
-
     /7|8/: {
       if $::is_hp_gen10 {
         $ams_package_name = 'amsd'  # hp_gen10 uses iLO5 which requires package amsd instead of hp-ams
@@ -48,6 +42,13 @@ class hpsim (
       }
     }
     default: { notice("operatingsystemrelease ${facts['os']['release']['full']} is not supported") }
+  }
+
+  # kmod-hpvsa is only available for lower kernel versions, oracle uses a newer kernel so this module is useless on those
+  if $facts['os']['name'] != 'OracleLinux' and $facts['os']['release']['major'] == '7' {
+    package { 'kmod-hpvsa':
+      ensure => installed,
+    }
   }
 
   if !$::is_hp_gen10 {
