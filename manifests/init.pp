@@ -26,13 +26,20 @@ class hpsim (
       }
     }
 
-    /7|8/: {
+   /7|8|9/: {
       if $::is_hp_gen10 {
         $ams_package_name = 'amsd'  # hp_gen10 uses iLO5 which requires package amsd instead of hp-ams
       } else {
         $ams_package_name = 'hp-ams'
       }
-      package { [ 'hp-health', 'hp-snmp-agents', $ams_package_name, 'hponcfg', 'sut' ]:
+
+      if $facts['os']['release']['major'] == '9' {
+        $packages = [$ams_package_name, 'sut']
+      } else {
+        $packages = ['hp-health', 'hp-snmp-agents', $ams_package_name, 'hponcfg', 'sut']
+      }
+
+      package { $packages:
         ensure => installed,
       } ~> exec {'/usr/bin/sleep 10':
         refreshonly => true,
