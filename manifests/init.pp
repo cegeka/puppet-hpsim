@@ -26,7 +26,7 @@ class hpsim (
       }
     }
 
-   /7|8|9/: {
+    /7|8|9/: {
       if $::is_hp_gen10 {
         $ams_package_name = 'amsd'  # hp_gen10 uses iLO5 which requires package amsd instead of hp-ams
       } else {
