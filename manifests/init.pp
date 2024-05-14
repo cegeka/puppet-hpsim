@@ -34,7 +34,7 @@ class hpsim (
       }
 
       if $facts['os']['release']['major'] == '9' {
-        $packages = [$ams_package_name, 'sut']
+        $packages = ['sut', $ams_package_name]
       } else {
         $packages = ['hp-health', 'hp-snmp-agents', $ams_package_name, 'hponcfg', 'sut']
       }
