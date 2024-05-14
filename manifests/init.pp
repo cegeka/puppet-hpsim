@@ -41,7 +41,7 @@ class hpsim (
 
       package { $packages:
         ensure => installed,
-      } ~> exec {'/usr/bin/sleep 10':
+      } ~> exec {'/usr/bin/sleep 20':
         refreshonly => true,
       } ~> exec {"/sbin/sut -set mode=${sut_mode}":
         path        => '/usr/local/bin:/bin:/sbin:/usr/local/sbin',
