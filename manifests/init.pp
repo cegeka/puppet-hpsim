@@ -27,8 +27,8 @@ class hpsim (
     }
 
     /7|8|9/: {
-      if $::is_hp_gen10 {
-        $ams_package_name = 'amsd'  # hp_gen10 uses iLO5 which requires package amsd instead of hp-ams
+      if $::is_hp_gen10 or $::is_hp_gen11 {
+        $ams_package_name = 'amsd'  # hp_gen10 uses iLO5 and hp_gen11 uses iLO6 which requires package amsd instead of hp-ams
       } else {
         $ams_package_name = 'hp-ams'
       }
@@ -58,7 +58,7 @@ class hpsim (
     }
   }
 
-  if !$::is_hp_gen10 {
+  if !$::is_hp_gen10 or !$::is_hp_gen11 {
     package { ['hpsmh', 'hp-smh-templates']:
       ensure => installed,
     }

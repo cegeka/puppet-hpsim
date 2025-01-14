@@ -1,3 +1,9 @@
+Facter.add(:is_hp_gen11) do
+  setcode do
+    Facter::Core::Execution.execute('cat /sys/devices/virtual/dmi/id/product_name').include? "Gen11"
+  end
+end
+
 Facter.add(:is_hp_gen10) do
   setcode do
     Facter::Core::Execution.execute('cat /sys/devices/virtual/dmi/id/product_name').include? "Gen10"
