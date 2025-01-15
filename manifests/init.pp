@@ -58,7 +58,7 @@ class hpsim (
     }
   }
 
-  if !$::is_hp_gen10 or !$::is_hp_gen11 {
+  if !($::is_hp_gen10 or !$::is_hp_gen11) {
     package { ['hpsmh', 'hp-smh-templates']:
       ensure => installed,
     }
